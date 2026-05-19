@@ -6,7 +6,7 @@ A minimal dark portfolio for Mohammad Ahmad Abujoudeh, built as a single-file Gi
 
 After publishing `gh-pages`, the site will be available at:
 
-https://muhabujoude.github.io/portfolio/
+https://muhabujoude.github.io/
 
 ## What It Does
 
@@ -36,6 +36,6 @@ Update these placeholders in `index.html` when ready:
 ## Deploy
 
 ```bash
-git remote add origin https://github.com/muhabujoude/portfolio.git
-git push -u origin gh-pages
+git remote add user-site https://github.com/muhabujoude/muhabujoude.github.io.git
+git push -u user-site HEAD:main
 ```
