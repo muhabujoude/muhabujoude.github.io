@@ -1,6 +1,6 @@
 # Mohammad Abujoudeh Portfolio
 
-A minimal dark portfolio for Mohammad Abujoudeh, built as a single-file GitHub Pages site.
+A minimal dark portfolio for Mohammad Ahmad Abujoudeh, built as a single-file GitHub Pages site.
 
 ## Live Portfolio
 
@@ -14,6 +14,7 @@ https://muhabujoude.github.io/portfolio/
 - Fetches repositories from `https://api.github.com/users/muhabujoude/repos?per_page=100&sort=updated`
 - Sorts public repositories by stars
 - Shows every public repository in the Selected Work section
+- Includes professional profile details and featured project summaries from Mohammad's Toptal profile
 - Uses vanilla HTML, CSS, and JavaScript only
 
 ## Design
