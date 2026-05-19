@@ -597,7 +597,7 @@
           <h2 id="work-title">Built with intent.</h2>
         </div>
         <p class="work-note">
-          Top public repositories are fetched from GitHub and sorted by stars.
+          Public repositories are fetched from GitHub and sorted by stars.
         </p>
       </div>
       <div id="workList" class="work-list loading" aria-live="polite">
@@ -630,7 +630,7 @@
   <script>
     const username = "muhabujoude";
     const profileUrl = `https://api.github.com/users/${username}`;
-    const reposUrl = `https://api.github.com/users/${username}/repos`;
+    const reposUrl = `https://api.github.com/users/${username}/repos?per_page=100&sort=updated`;
 
     const fallbackBio =
       "Full-stack developer building scalable web applications with React, Angular, TypeScript, Node.js, .NET, and PostgreSQL.";
@@ -651,10 +651,13 @@
 
     const renderRepos = (repos) => {
       const workList = document.querySelector("#workList");
-      const selected = repos
-        .filter((repo) => !repo.fork)
-        .sort((a, b) => b.stargazers_count - a.stargazers_count)
-        .slice(0, 4);
+      const selected = repos.sort((a, b) => {
+        if (b.stargazers_count !== a.stargazers_count) {
+          return b.stargazers_count - a.stargazers_count;
+        }
+
+        return new Date(b.updated_at) - new Date(a.updated_at);
+      });
 
       workList.classList.remove("loading");
 

@@ -11,9 +11,9 @@ https://muhabujoude.github.io/portfolio/
 ## What It Does
 
 - Fetches GitHub profile data from `https://api.github.com/users/muhabujoude`
-- Fetches repositories from `https://api.github.com/users/muhabujoude/repos`
+- Fetches repositories from `https://api.github.com/users/muhabujoude/repos?per_page=100&sort=updated`
 - Sorts public repositories by stars
-- Shows the top 4 repositories in the Selected Work section
+- Shows every public repository in the Selected Work section
 - Uses vanilla HTML, CSS, and JavaScript only
 
 ## Design
