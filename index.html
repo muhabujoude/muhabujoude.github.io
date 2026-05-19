@@ -649,7 +649,7 @@
           <h2 id="work-title">Built with intent.</h2>
         </div>
         <p class="work-note">
-          Featured work comes from Toptal. Public repositories are fetched from GitHub.
+          Featured work comes from Toptal. GitHub repositories include public repos and recent public activity.
         </p>
       </div>
       <div class="work-list">
@@ -719,9 +719,9 @@
           </div>
         </article>
       </div>
-      <div class="section-kicker github-kicker">GitHub Repositories</div>
+      <div class="section-kicker github-kicker">GitHub Work</div>
       <div id="workList" class="work-list loading" aria-live="polite">
-        <div class="empty-work">Loading repositories from GitHub...</div>
+        <div class="empty-work">Loading GitHub work...</div>
       </div>
     </section>
 
@@ -750,14 +750,24 @@
   <script>
     const username = "muhabujoude";
     const profileUrl = `https://api.github.com/users/${username}`;
-    const reposUrl = `https://api.github.com/users/${username}/repos?per_page=100&sort=updated`;
+    const reposUrl = `https://api.github.com/users/${username}/repos?per_page=100&type=all&sort=updated`;
+    const eventsUrl = `https://api.github.com/users/${username}/events/public?per_page=100`;
 
     const fallbackBio =
       "Full-stack developer with 10+ years of experience building enterprise-grade web platforms, modern frontends, and scalable .NET-backed systems.";
 
     const languageFallback = {
-      portfolio: "HTML / CSS / JavaScript"
+      portfolio: "HTML / CSS / JavaScript",
+      "muhabujoude.github.io": "HTML / CSS / JavaScript"
     };
+
+    const escapeHtml = (value) =>
+      String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 
     const getYear = (value) => {
       const date = value ? new Date(value) : new Date();
@@ -766,44 +776,95 @@
 
     const formatDescription = (repo) => {
       if (repo.description) return repo.description;
-      return "A focused public repository from Mohammad Abujoudeh's GitHub workspace.";
+      return "A public GitHub repository connected to Mohammad Abujoudeh's development work.";
+    };
+
+    const repoKey = (repo) => repo.full_name || repo.name;
+
+    const repoFromEvent = (eventRepo) => ({
+      name: eventRepo.name.split("/").pop(),
+      full_name: eventRepo.name,
+      description: "Recent public GitHub activity by Mohammad Abujoudeh.",
+      language: null,
+      stargazers_count: 0,
+      html_url: `https://github.com/${eventRepo.name}`,
+      created_at: null,
+      updated_at: null
+    });
+
+    const mergeRepos = async (repos, events) => {
+      const byName = new Map();
+
+      repos.forEach((repo) => {
+        byName.set(repoKey(repo), repo);
+      });
+
+      const eventRepos = [...new Map(
+        events
+          .map((event) => event.repo)
+          .filter((repo) => repo && repo.name)
+          .map((repo) => [repo.name, repo])
+      ).values()];
+
+      const missingEventRepos = eventRepos.filter((repo) => !byName.has(repo.name));
+      const detailedEventRepos = await Promise.all(
+        missingEventRepos.map(async (repo) => {
+          try {
+            const response = await fetch(repo.url);
+            if (!response.ok) return repoFromEvent(repo);
+            return response.json();
+          } catch (error) {
+            return repoFromEvent(repo);
+          }
+        })
+      );
+
+      detailedEventRepos.forEach((repo) => {
+        byName.set(repoKey(repo), repo);
+      });
+
+      return [...byName.values()];
     };
 
     const renderRepos = (repos) => {
       const workList = document.querySelector("#workList");
       const selected = repos.sort((a, b) => {
-        if (b.stargazers_count !== a.stargazers_count) {
-          return b.stargazers_count - a.stargazers_count;
+        const aStars = a.stargazers_count || 0;
+        const bStars = b.stargazers_count || 0;
+
+        if (bStars !== aStars) {
+          return bStars - aStars;
         }
 
-        return new Date(b.updated_at) - new Date(a.updated_at);
+        return new Date(b.updated_at || 0) - new Date(a.updated_at || 0);
       });
 
       workList.classList.remove("loading");
 
       if (!selected.length) {
-        workList.innerHTML = '<div class="empty-work">No public repositories available yet.</div>';
+        workList.innerHTML = '<div class="empty-work">No public GitHub work available yet.</div>';
         return;
       }
 
       workList.innerHTML = selected
         .map((repo) => {
           const tech = repo.language || languageFallback[repo.name] || "Repository";
-          const stars = repo.stargazers_count === 1 ? "1 star" : `${repo.stargazers_count} stars`;
+          const stars = repo.stargazers_count === 1 ? "1 star" : `${repo.stargazers_count || 0} stars`;
+          const fullName = repo.full_name || repo.name;
 
           return `
             <article class="work-item">
               <div>
                 <div class="work-title">
-                  <h3>${repo.name}</h3>
-                  <span class="tech">${tech}</span>
+                  <h3>${escapeHtml(repo.name)}</h3>
+                  <span class="tech">${escapeHtml(tech)}</span>
                 </div>
-                <p class="work-desc">${formatDescription(repo)}</p>
+                <p class="work-desc">${escapeHtml(formatDescription(repo))}</p>
               </div>
               <div class="work-meta">
-                <span>${getYear(repo.created_at)}</span>
-                <span>${stars}</span>
-                <a class="arrow-link" href="${repo.html_url}" target="_blank" rel="noreferrer" aria-label="Open ${repo.name} on GitHub">↗</a>
+                <span>${getYear(repo.created_at || repo.updated_at)}</span>
+                <span>${escapeHtml(stars)}</span>
+                <a class="arrow-link" href="${repo.html_url}" target="_blank" rel="noreferrer" aria-label="Open ${escapeHtml(fullName)} on GitHub">↗</a>
               </div>
             </article>
           `;
@@ -824,26 +885,29 @@
 
     const hydrate = async () => {
       try {
-        const [profileResponse, reposResponse] = await Promise.all([
+        const [profileResponse, reposResponse, eventsResponse] = await Promise.all([
           fetch(profileUrl),
-          fetch(reposUrl)
+          fetch(reposUrl),
+          fetch(eventsUrl)
         ]);
 
-        if (!profileResponse.ok || !reposResponse.ok) {
+        if (!profileResponse.ok || !reposResponse.ok || !eventsResponse.ok) {
           throw new Error("GitHub API request failed");
         }
 
-        const [profile, repos] = await Promise.all([
+        const [profile, repos, events] = await Promise.all([
           profileResponse.json(),
-          reposResponse.json()
+          reposResponse.json(),
+          eventsResponse.json()
         ]);
+        const allRepos = await mergeRepos(repos, events);
 
         hydrateProfile(profile);
-        renderRepos(repos);
+        renderRepos(allRepos);
       } catch (error) {
         document.querySelector("#workList").classList.remove("loading");
         document.querySelector("#workList").innerHTML =
-          '<div class="empty-work">GitHub repositories could not be loaded right now.</div>';
+          '<div class="empty-work">GitHub work could not be loaded right now.</div>';
       }
     };
 

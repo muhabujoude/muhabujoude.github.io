@@ -11,9 +11,10 @@ https://muhabujoude.github.io/
 ## What It Does
 
 - Fetches GitHub profile data from `https://api.github.com/users/muhabujoude`
-- Fetches repositories from `https://api.github.com/users/muhabujoude/repos?per_page=100&sort=updated`
-- Sorts public repositories by stars
-- Shows every public repository in the Selected Work section
+- Fetches repositories from `https://api.github.com/users/muhabujoude/repos?per_page=100&type=all&sort=updated`
+- Fetches recent public activity from `https://api.github.com/users/muhabujoude/events/public?per_page=100`
+- Combines public repositories and recent activity repositories without duplicates
+- Sorts GitHub work by stars, then recent updates
 - Includes professional profile details and featured project summaries from Mohammad's Toptal profile
 - Uses vanilla HTML, CSS, and JavaScript only
 
