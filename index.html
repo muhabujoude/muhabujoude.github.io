@@ -1,31 +1,54 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mohammad Ahmad Abujoudeh | Full Stack Developer</title>
-  <meta
-    name="description"
-    content="Personal portfolio website for Mohammad Ahmad Abujoudeh, full stack developer specializing in .NET, Angular, React, and scalable web systems."
-  />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap"
-    rel="stylesheet"
-  />
+  <meta name="description" content="Terminal-style portfolio for Mohammad Ahmad Abujoudeh, a full stack developer building robust web platforms with .NET, Angular, React, Node.js, and PostgreSQL.">
+  <meta property="og:title" content="Mohammad Ahmad Abujoudeh | Full Stack Developer">
+  <meta property="og:description" content="Selected work, GitHub repositories, experience, and contact links for Mohammad Ahmad Abujoudeh.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#050807">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #090908;
-      --bg-soft: #11100e;
-      --panel: #14120f;
-      --line: rgba(249, 247, 243, 0.12);
-      --gold: #B8935A;
-      --text: #F9F7F3;
-      --muted: rgba(249, 247, 243, 0.66);
-      --faint: rgba(249, 247, 243, 0.42);
-      --veil: rgba(9, 9, 8, 0.84);
-      --max: 1320px;
+      --bg: #050807;
+      --bg-2: #07100d;
+      --panel: rgba(8, 16, 13, 0.88);
+      --panel-2: rgba(13, 25, 20, 0.72);
+      --line: rgba(135, 255, 188, 0.14);
+      --line-strong: rgba(135, 255, 188, 0.28);
+      --text: #e9fff1;
+      --muted: #8ba493;
+      --soft: #b9d4c0;
+      --green: #74f0a7;
+      --green-2: #35c979;
+      --amber: #d7b56d;
+      --blue: #8cc8ff;
+      --red: #ff6b75;
+      --shadow: rgba(0, 0, 0, 0.32);
+      --radius: 18px;
+      --mono: "JetBrains Mono", Consolas, monospace;
+    }
+
+    [data-theme="light"] {
+      --bg: #f2f0e6;
+      --bg-2: #e8e4d8;
+      --panel: rgba(255, 252, 240, 0.88);
+      --panel-2: rgba(255, 252, 240, 0.72);
+      --line: rgba(29, 80, 49, 0.16);
+      --line-strong: rgba(29, 80, 49, 0.32);
+      --text: #132118;
+      --muted: #5d705f;
+      --soft: #2f4636;
+      --green: #167842;
+      --green-2: #0f6135;
+      --amber: #996f1d;
+      --blue: #1d5b92;
+      --red: #b0343e;
+      --shadow: rgba(36, 52, 39, 0.18);
     }
 
     * {
@@ -38,17 +61,29 @@
 
     body {
       margin: 0;
-      background: var(--bg);
+      min-height: 100dvh;
       color: var(--text);
-      font-family: "DM Sans", sans-serif;
-      font-size: 16px;
-      line-height: 1.7;
-      letter-spacing: 0;
+      background:
+        linear-gradient(transparent 31px, rgba(116, 240, 167, 0.035) 32px),
+        linear-gradient(90deg, transparent 31px, rgba(116, 240, 167, 0.025) 32px),
+        radial-gradient(circle at top left, rgba(116, 240, 167, 0.08), transparent 34rem),
+        var(--bg);
+      background-size: 32px 32px, 32px 32px, auto, auto;
+      font-family: var(--mono);
+      line-height: 1.65;
+      overflow-x: hidden;
     }
 
-    body::selection {
-      background: var(--gold);
-      color: var(--bg);
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 3px);
+      mix-blend-mode: overlay;
+      opacity: 0.36;
+      z-index: 5;
     }
 
     a {
@@ -57,1013 +92,1287 @@
     }
 
     button,
-    a {
-      -webkit-tap-highlight-color: transparent;
+    input {
+      font: inherit;
     }
 
-    .site-nav {
+    .skip-link {
       position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10;
-      width: 100%;
-      background: rgba(9, 9, 8, 0.9);
-      border-bottom: 0.5px solid var(--line);
+      top: 1rem;
+      left: 1rem;
+      z-index: 50;
+      padding: 0.7rem 1rem;
+      color: var(--bg);
+      background: var(--green);
+      transform: translateY(-150%);
+      transition: transform 180ms ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .shell {
+      width: min(1440px, calc(100% - 32px));
+      margin: 28px auto;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 30px 90px var(--shadow);
+      overflow: hidden;
       backdrop-filter: blur(18px);
     }
 
-    .nav-inner {
-      width: min(var(--max), calc(100% - 40px));
-      height: 82px;
-      margin: 0 auto;
-      display: flex;
+    .titlebar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
-      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--panel) 92%, transparent);
+      backdrop-filter: blur(18px);
     }
 
-    .logo {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.5rem;
-      font-weight: 500;
-      color: var(--text);
-      letter-spacing: 0.08em;
+    .lights {
+      display: flex;
+      gap: 0.55rem;
     }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 34px;
+    .light {
+      width: 0.78rem;
+      aspect-ratio: 1;
+      border-radius: 999px;
+      background: var(--green);
+    }
+
+    .light:nth-child(1) {
+      background: var(--red);
+    }
+
+    .light:nth-child(2) {
+      background: var(--amber);
+    }
+
+    .path {
+      min-width: 0;
       color: var(--muted);
+      font-size: clamp(0.72rem, 1.6vw, 0.84rem);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(0.5rem, 1.5vw, 1rem);
+    }
+
+    .nav a,
+    .theme-toggle {
+      border: 1px solid transparent;
+      color: var(--muted);
+      background: transparent;
+      padding: 0.45rem 0.55rem;
+      border-radius: 8px;
       font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
     }
 
-    .nav-links a {
-      transition: color 180ms ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--gold);
+    .nav a:hover,
+    .theme-toggle:hover,
+    .nav a:focus-visible,
+    .theme-toggle:focus-visible {
+      color: var(--green);
+      border-color: var(--line-strong);
+      background: rgba(116, 240, 167, 0.06);
+      outline: none;
     }
 
     main {
-      overflow: hidden;
+      padding: clamp(1.2rem, 3vw, 2.6rem);
     }
 
-    .section {
-      width: min(var(--max), calc(100% - 40px));
-      margin: 0 auto;
-      padding: 132px 0;
-      border-bottom: 0.5px solid var(--line);
+    .prompt {
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .comment {
+      color: #668071;
     }
 
     .hero {
-      min-height: 100dvh;
-      padding-top: 160px;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(340px, 480px);
-      align-items: center;
-      gap: clamp(44px, 7vw, 104px);
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+      gap: clamp(2rem, 6vw, 5.5rem);
+      align-items: end;
+      padding: clamp(3.4rem, 9vw, 8rem) 0 clamp(4rem, 7vw, 6rem);
+      border-bottom: 1px solid var(--line);
     }
 
-    .eyebrow {
+    .kicker {
       display: flex;
       align-items: center;
-      gap: 18px;
-      margin-bottom: 34px;
-      color: var(--gold);
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
+      gap: 0.9rem;
+      margin-bottom: 1.8rem;
+      color: var(--green);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
-    .eyebrow::before {
+    .kicker::before {
       content: "";
-      width: 72px;
-      height: 0.5px;
-      background: var(--gold);
+      width: 4rem;
+      height: 1px;
+      background: var(--green);
     }
 
     h1,
     h2,
-    h3 {
-      margin: 0;
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 300;
-      line-height: 0.95;
-      letter-spacing: 0;
+    h3,
+    p {
+      margin-top: 0;
     }
 
     h1 {
-      max-width: 920px;
-      font-size: clamp(4.2rem, 10vw, 10.8rem);
+      max-width: 11ch;
+      margin-bottom: 1.4rem;
+      font-size: clamp(3.15rem, 10.2vw, 9.8rem);
+      line-height: 0.88;
+      letter-spacing: -0.055em;
       text-wrap: balance;
     }
 
-    h1 em {
-      color: var(--gold);
+    .name-accent {
+      display: block;
+      color: var(--green);
       font-style: italic;
-      font-weight: 400;
+      font-weight: 300;
     }
 
     .hero-copy {
-      max-width: 680px;
-      margin: 42px 0 0;
-      color: var(--muted);
-      font-size: clamp(1.05rem, 1.7vw, 1.35rem);
-      line-height: 1.72;
+      max-width: 68ch;
+      color: var(--soft);
+      font-size: clamp(1rem, 1.4vw, 1.16rem);
     }
 
     .hero-actions {
       display: flex;
-      align-items: center;
-      gap: 24px;
-      margin-top: 42px;
       flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 2rem;
     }
 
-    .hero-metrics {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      max-width: 760px;
-      margin-top: 64px;
-      border-top: 0.5px solid var(--line);
-      border-bottom: 0.5px solid var(--line);
-    }
-
-    .hero-metric {
-      padding: 22px 22px 22px 0;
-      border-right: 0.5px solid var(--line);
-    }
-
-    .hero-metric:last-child {
-      border-right: 0;
-    }
-
-    .hero-metric strong {
-      display: block;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(2.3rem, 4vw, 4.2rem);
-      font-weight: 300;
-      line-height: 0.92;
-      color: var(--text);
-    }
-
-    .hero-metric span {
-      display: block;
-      margin-top: 10px;
-      color: var(--faint);
-      font-size: 0.76rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
-    .button {
+    .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 48px;
-      padding: 0 22px;
-      border: 0.5px solid var(--gold);
-      color: var(--gold);
-      background: transparent;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      transition: background 180ms ease, color 180ms ease;
+      min-height: 2.75rem;
+      border: 1px solid var(--line-strong);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      color: var(--text);
+      background: rgba(116, 240, 167, 0.06);
+      transition: transform 180ms ease, background 180ms ease, color 180ms ease, border-color 180ms ease;
     }
 
-    .button:hover {
-      background: var(--gold);
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-2px);
       color: var(--bg);
+      background: var(--green);
+      border-color: var(--green);
+      outline: none;
     }
 
-    .button:active {
-      transform: translateY(1px);
+    .btn.secondary:hover,
+    .btn.secondary:focus-visible {
+      color: var(--text);
+      background: rgba(215, 181, 109, 0.12);
+      border-color: var(--amber);
     }
 
-    .button:focus-visible,
-    a:focus-visible {
-      outline: 1px solid var(--gold);
-      outline-offset: 4px;
+    .status-panel {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel-2);
+      overflow: hidden;
     }
 
-    .profile-panel {
-      position: relative;
-      padding: 0 0 4px;
-      border-top: 0;
-      color: var(--faint);
-      font-size: 0.86rem;
+    .status-panel header {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.78rem;
     }
 
-    .profile-panel::before {
-      content: "Public profile";
-      position: absolute;
-      top: 18px;
-      left: 18px;
-      z-index: 1;
-      padding: 8px 10px;
-      background: var(--veil);
-      border: 0.5px solid rgba(184, 147, 90, 0.42);
-      color: var(--gold);
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+    .profile {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem;
+      border-bottom: 1px solid var(--line);
     }
 
     .avatar {
-      width: 100%;
-      height: clamp(430px, 62vh, 620px);
+      width: 72px;
+      aspect-ratio: 1;
+      border-radius: 12px;
+      border: 1px solid var(--line-strong);
       object-fit: cover;
-      margin-bottom: 0;
-      border: 0.5px solid var(--line);
-      filter: grayscale(100%) contrast(1.06);
+      background: rgba(116, 240, 167, 0.08);
     }
 
-    .profile-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 14px 0;
-      border-bottom: 0.5px solid var(--line);
+    .profile strong {
+      display: block;
+      font-size: 0.98rem;
+      color: var(--text);
     }
 
-    .profile-row span:first-child {
+    .profile span {
+      display: block;
       color: var(--muted);
-    }
-
-    .section-kicker {
-      margin-bottom: 48px;
-      color: var(--gold);
       font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
     }
 
-    .github-kicker {
-      margin-top: 64px;
-      margin-bottom: 24px;
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .metric {
+      padding: 1rem;
+      border-right: 1px solid var(--line);
+    }
+
+    .metric:last-child {
+      border-right: 0;
+    }
+
+    .metric b {
+      display: block;
+      color: var(--green);
+      font-size: 1.2rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 0.72rem;
+    }
+
+    .terminal-lines {
+      padding: 1rem;
+      color: var(--soft);
+      font-size: 0.82rem;
+    }
+
+    .terminal-lines p {
+      margin: 0 0 0.55rem;
+    }
+
+    .section {
+      padding: clamp(4rem, 8vw, 7rem) 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
+      gap: clamp(1.5rem, 4vw, 4rem);
+      margin-bottom: clamp(2rem, 5vw, 4rem);
+    }
+
+    .section-label {
+      color: var(--green);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    h2 {
+      max-width: 780px;
+      color: var(--text);
+      font-size: clamp(2rem, 5vw, 5.2rem);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      text-wrap: balance;
+    }
+
+    .section-intro {
+      max-width: 68ch;
+      color: var(--soft);
     }
 
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      border-top: 0.5px solid var(--line);
-      border-bottom: 0.5px solid var(--line);
-      background: rgba(20, 18, 15, 0.52);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
     }
 
-    .skill-column {
-      min-height: 230px;
-      padding: 36px 34px 34px;
-      border-right: 0.5px solid var(--line);
+    .skill-col {
+      padding: clamp(1.2rem, 3vw, 2rem);
+      border-right: 1px solid var(--line);
     }
 
-    .skill-column:last-child {
+    .skill-col:last-child {
       border-right: 0;
     }
 
-    .skill-column h3 {
-      margin-bottom: 34px;
-      font-size: clamp(2.1rem, 4vw, 3.6rem);
-      color: var(--text);
+    .skill-col h3 {
+      color: var(--amber);
+      margin-bottom: 1.4rem;
+      font-size: 1rem;
     }
 
-    .skill-column ul {
-      display: grid;
-      gap: 13px;
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
       margin: 0;
       padding: 0;
       list-style: none;
-      color: var(--muted);
     }
 
-    .work-header {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: end;
-      gap: 28px;
-      margin-bottom: 54px;
-    }
-
-    h2 {
-      font-size: clamp(3.4rem, 7vw, 6.5rem);
-    }
-
-    .work-note {
-      max-width: 340px;
-      color: var(--faint);
-      font-size: 0.94rem;
-    }
-
-    .work-list {
-      border-top: 0.5px solid var(--line);
+    .skill-list li {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.48rem 0.62rem;
+      color: var(--soft);
+      background: rgba(116, 240, 167, 0.035);
+      font-size: 0.82rem;
     }
 
     .work-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      border-left: 0.5px solid var(--line);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
     }
 
-    .work-item {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 28px;
-      align-items: center;
-      padding: 30px 0;
-      border-bottom: 0.5px solid var(--line);
+    .repo-card,
+    .featured-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 258px;
+      padding: clamp(1rem, 2vw, 1.35rem);
+      background: var(--bg);
+      transition: background 180ms ease, transform 180ms ease;
     }
 
-    .work-grid .work-item {
-      min-height: 320px;
-      grid-template-columns: 1fr;
-      align-content: space-between;
-      gap: 34px;
-      padding: 34px 30px;
-      border-right: 0.5px solid var(--line);
-      background: rgba(20, 18, 15, 0.42);
-      transition: background 220ms ease, transform 220ms ease;
-    }
-
-    .work-grid .work-item:hover {
-      background: rgba(23, 21, 17, 0.9);
+    .repo-card:hover,
+    .featured-card:hover {
+      background: color-mix(in srgb, var(--bg) 88%, var(--green) 12%);
       transform: translateY(-2px);
     }
 
-    .work-title {
+    .repo-top,
+    .featured-top {
       display: flex;
-      align-items: flex-start;
-      gap: 18px;
-      flex-wrap: wrap;
-      margin-bottom: 8px;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: start;
+      margin-bottom: 1.6rem;
     }
 
-    .work-title h3 {
-      font-size: clamp(1.9rem, 3.7vw, 3rem);
-      line-height: 1.05;
-    }
-
-    .work-grid .work-title {
-      display: grid;
-      gap: 14px;
-    }
-
-    .work-grid .work-title h3 {
-      font-size: clamp(2rem, 2.8vw, 3.05rem);
+    .repo-card h3,
+    .featured-card h3 {
+      margin: 0;
+      color: var(--text);
+      font-size: 1rem;
+      line-height: 1.35;
       overflow-wrap: anywhere;
     }
 
-    .tech {
-      color: var(--gold);
-      font-size: 0.76rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+    .arrow {
+      color: var(--green);
+      font-size: 1.05rem;
     }
 
-    .work-desc {
-      max-width: 700px;
-      margin: 0;
-      color: var(--muted);
+    .repo-desc,
+    .featured-desc {
+      color: var(--soft);
+      font-size: 0.84rem;
+      flex: 1;
     }
 
-    .work-grid .work-desc {
-      max-width: none;
-      font-size: 0.94rem;
-      line-height: 1.65;
-    }
-
-    .work-meta {
+    .repo-meta,
+    .featured-meta {
       display: flex;
-      align-items: center;
-      gap: 26px;
-      white-space: nowrap;
-      color: var(--faint);
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: 1.2rem;
+      color: var(--muted);
+      font-size: 0.74rem;
+    }
+
+    .repo-meta span,
+    .featured-meta span {
+      border-top: 1px solid var(--line);
+      padding-top: 0.42rem;
+    }
+
+    .log {
+      border-top: 1px solid var(--line);
+    }
+
+    .log-row {
+      display: grid;
+      grid-template-columns: 7rem 1fr auto;
+      gap: 1.4rem;
+      align-items: start;
+      padding: 1.15rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .log-hash {
+      color: var(--amber);
+      font-size: 0.8rem;
+    }
+
+    .log-title {
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+
+    .log-body {
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .log-year {
+      color: var(--green);
+      font-size: 0.82rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .console {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.42fr);
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .console-window {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      min-height: 360px;
+      background: rgba(0, 0, 0, 0.16);
+      overflow: hidden;
+    }
+
+    .console-output {
+      height: 292px;
+      overflow: auto;
+      padding: 1rem;
+      color: var(--soft);
       font-size: 0.86rem;
     }
 
-    .work-grid .work-meta {
-      justify-content: space-between;
-      white-space: normal;
+    .console-line {
+      margin: 0 0 0.55rem;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
     }
 
-    .arrow-link {
-      display: inline-flex;
+    .console-form {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.7rem;
       align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      border: 0.5px solid rgba(184, 147, 90, 0.45);
-      color: var(--gold);
-      font-size: 1.2rem;
-      transition: border-color 180ms ease, transform 180ms ease;
+      padding: 0.85rem 1rem;
+      border-top: 1px solid var(--line);
     }
 
-    .arrow-link:hover {
-      border-color: var(--gold);
-      transform: translateX(3px);
+    .console-form input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      color: var(--text);
+      background: transparent;
+      caret-color: var(--green);
     }
 
-    .empty-work {
-      padding: 38px 0;
-      border-bottom: 0.5px solid var(--line);
-      color: var(--muted);
+    .quick-links {
+      display: grid;
+      gap: 0.8rem;
     }
 
-    .contact {
+    .quick-links a,
+    .quick-links button {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      color: var(--soft);
+      background: rgba(116, 240, 167, 0.035);
+      text-align: left;
+      cursor: pointer;
+      transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .quick-links a:hover,
+    .quick-links button:hover,
+    .quick-links a:focus-visible,
+    .quick-links button:focus-visible {
+      color: var(--green);
+      border-color: var(--green);
+      background: rgba(116, 240, 167, 0.08);
+      outline: none;
+    }
+
+    .contact-panel {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
-      gap: 44px;
+      gap: 2rem;
       align-items: end;
-      background: var(--bg-soft);
-      width: 100%;
-      max-width: none;
-      padding-left: max(20px, calc((100vw - var(--max)) / 2));
-      padding-right: max(20px, calc((100vw - var(--max)) / 2));
     }
 
-    .contact h2 {
-      max-width: 740px;
-      margin-bottom: 28px;
+    .contact-panel h2 {
+      margin-bottom: 1rem;
     }
 
-    .contact-email {
-      color: var(--muted);
-      font-size: clamp(1rem, 2vw, 1.3rem);
-    }
-
-    .contact-links {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+    .contact-panel p {
+      color: var(--soft);
     }
 
     footer {
-      background: var(--bg-soft);
-      color: var(--faint);
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 2rem;
+      color: var(--muted);
+      font-size: 0.78rem;
     }
 
-    .footer-inner {
-      width: min(var(--max), calc(100% - 40px));
-      min-height: 90px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-top: 0.5px solid var(--line);
-      font-size: 0.86rem;
+    .matrix {
+      position: fixed;
+      inset: 0;
+      display: none;
+      z-index: 4;
+      pointer-events: none;
+      opacity: 0.2;
+      color: var(--green);
+      font-size: 0.72rem;
+      line-height: 1;
+      word-break: break-all;
+      overflow: hidden;
+    }
+
+    .matrix.active {
+      display: block;
     }
 
     .loading {
-      opacity: 0.72;
+      min-height: 258px;
+      padding: 1.4rem;
+      color: var(--muted);
+      background: var(--bg);
+      grid-column: 1 / -1;
     }
 
-    @media (max-width: 860px) {
-      .nav-inner {
-        height: 68px;
-      }
-
-      .nav-links {
-        gap: 18px;
-        font-size: 0.72rem;
-      }
-
-      .section {
-        padding: 86px 0;
-      }
-
-      .hero {
-        min-height: auto;
-        grid-template-columns: 1fr;
-        gap: 48px;
-        padding-top: 136px;
-      }
-
-      .profile-panel {
-        max-width: 520px;
-      }
-
-      .avatar {
-        height: min(520px, 78vw);
-      }
-
-      .skills-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .skill-column {
-        min-height: 0;
-        border-right: 0;
-        border-bottom: 0.5px solid var(--line);
-      }
-
-      .skill-column:last-child {
-        border-bottom: 0;
-      }
-
-      .work-header,
-      .contact {
+    @media (max-width: 1040px) {
+      .hero,
+      .section-head,
+      .console {
         grid-template-columns: 1fr;
       }
 
       .work-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
-
-      .work-meta,
-      .contact-links {
-        justify-content: flex-start;
-      }
     }
 
-    @media (max-width: 560px) {
-      .nav-inner,
-      .section,
-      .footer-inner {
-        width: min(100% - 28px, var(--max));
+    @media (max-width: 760px) {
+      .shell {
+        width: min(100% - 18px, 1440px);
+        margin: 9px auto;
+        border-radius: 14px;
       }
 
-      .nav-links {
-        gap: 13px;
+      .titlebar {
+        grid-template-columns: auto 1fr;
       }
 
-      .nav-links a {
-        letter-spacing: 0.09em;
+      .top-actions {
+        grid-column: 1 / -1;
+        justify-content: space-between;
       }
 
-      h1 {
-        font-size: clamp(3.5rem, 20vw, 5.6rem);
-      }
-
-      .hero-metrics {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-metric {
-        border-right: 0;
-        border-bottom: 0.5px solid var(--line);
-      }
-
-      .hero-metric:last-child {
-        border-bottom: 0;
-      }
-
-      .eyebrow {
-        align-items: flex-start;
-        gap: 12px;
-        font-size: 0.7rem;
-      }
-
-      .eyebrow::before {
-        width: 42px;
-        margin-top: 0.7em;
-      }
-
-      .button {
-        width: 100%;
-      }
-
-      .work-title {
-        gap: 10px;
-      }
-
-      .work-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .work-meta {
+      .nav {
         width: 100%;
         justify-content: space-between;
       }
 
-      .footer-inner {
+      main {
+        padding: 1rem;
+      }
+
+      .hero {
+        padding-top: 3.2rem;
+      }
+
+      h1 {
+        font-size: clamp(3.1rem, 18vw, 5.2rem);
+      }
+
+      .skills-grid,
+      .work-grid,
+      .contact-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .skill-col {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .skill-col:last-child {
+        border-bottom: 0;
+      }
+
+      .log-row {
+        grid-template-columns: 1fr;
+        gap: 0.45rem;
+      }
+
+      footer {
         flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        gap: 6px;
       }
     }
   </style>
 </head>
 <body>
-  <nav class="site-nav" aria-label="Primary navigation">
-    <div class="nav-inner">
-      <a href="#top" class="logo" aria-label="Mohammad Abujoudeh home">MA</a>
-      <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#experience">Experience</a>
-        <a href="#work">Work</a>
-        <a href="#contact">Contact</a>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="matrix" id="matrix" aria-hidden="true"></div>
+
+  <div class="shell">
+    <div class="titlebar">
+      <div class="lights" aria-hidden="true">
+        <span class="light"></span>
+        <span class="light"></span>
+        <span class="light"></span>
+      </div>
+      <div class="path">muhabujoude@portfolio: ~/mohammad-abujoudeh</div>
+      <div class="top-actions">
+        <nav class="nav" aria-label="Primary navigation">
+          <a href="#about">about</a>
+          <a href="#skills">skills</a>
+          <a href="#work">work</a>
+          <a href="#contact">contact</a>
+        </nav>
+        <button class="theme-toggle" type="button" id="themeToggle">theme</button>
       </div>
     </div>
-  </nav>
 
-  <main id="top">
-    <section id="about" class="section hero">
-      <div>
-        <div class="eyebrow">Full Stack Developer</div>
-        <h1>Mohammad Ahmad <em>Abujoudeh</em></h1>
-        <p class="hero-copy" id="bio">
-          Full-stack developer with 10+ years of experience building
-          enterprise-grade web platforms, modern frontends, and scalable
-          .NET-backed systems.
-        </p>
-        <div class="hero-actions">
-          <a class="button" href="#work">View Work</a>
-        </div>
-        <div class="hero-metrics" aria-label="Professional highlights">
-          <div class="hero-metric">
-            <strong>10+</strong>
-            <span>Years building</span>
-          </div>
-          <div class="hero-metric">
-            <strong>.NET</strong>
-            <span>Backend focus</span>
-          </div>
-          <div class="hero-metric">
-            <strong>Angular</strong>
-            <span>Frontend depth</span>
-          </div>
-        </div>
-      </div>
-
-      <aside class="profile-panel" aria-label="GitHub profile summary">
-        <img
-          id="avatar"
-          class="avatar"
-          src="https://avatars.githubusercontent.com/u/17459369?v=4"
-          alt="Mohammad Abujoudeh GitHub avatar"
-        />
-        <div class="profile-row">
-          <span>GitHub</span>
-          <a id="githubProfile" href="https://github.com/muhabujoude" target="_blank" rel="noreferrer">muhabujoude</a>
-        </div>
-        <div class="profile-row">
-          <span>Location</span>
-          <span id="location">Ramallah, Palestine</span>
-        </div>
-        <div class="profile-row">
-          <span>Followers</span>
-          <span id="followers">0</span>
-        </div>
-        <div class="profile-row">
-          <span>Source</span>
-          <a href="https://www.toptal.com/developers/resume/mohammad-ahmad-abujoudeh" target="_blank" rel="noreferrer">Toptal</a>
-        </div>
-      </aside>
-    </section>
-
-    <section class="section" aria-labelledby="skills-title">
-      <div class="section-kicker">Skills</div>
-      <div class="skills-grid" id="skills-title">
-        <article class="skill-column">
-          <h3>Frontend</h3>
-          <ul>
-            <li>React</li>
-            <li>Angular</li>
-            <li>TypeScript</li>
-            <li>Next.js</li>
-          </ul>
-        </article>
-        <article class="skill-column">
-          <h3>Backend</h3>
-          <ul>
-            <li>.NET</li>
-            <li>ASP.NET Core</li>
-            <li>Node.js</li>
-            <li>REST APIs</li>
-          </ul>
-        </article>
-        <article class="skill-column">
-          <h3>Data & Tools</h3>
-          <ul>
-            <li>PostgreSQL</li>
-            <li>SQL Server</li>
-            <li>Docker</li>
-            <li>Azure / AWS</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section id="experience" class="section" aria-labelledby="experience-title">
-      <div class="work-header">
+    <main id="main">
+      <section class="hero" id="about">
         <div>
-          <div class="section-kicker">Experience</div>
-          <h2 id="experience-title">Production systems, not just screens.</h2>
+          <div class="kicker">full stack developer</div>
+          <h1>Mohammad <span class="name-accent">Abujoudeh</span></h1>
+          <p class="hero-copy" id="heroBio">
+            Senior full stack developer from Palestine with 10+ years of experience building production web platforms across .NET, Angular, React, Node.js, SQL, and cloud-ready workflows.
+          </p>
+          <div class="hero-actions">
+            <a class="btn" href="#work">./view-work</a>
+            <a class="btn secondary" href="https://www.toptal.com/developers/resume/mohammad-ahmad-abujoudeh" target="_blank" rel="noreferrer">cat resume</a>
+          </div>
         </div>
-        <p class="work-note">
-          Based on Mohammad's public Toptal profile and professional project history.
-        </p>
-      </div>
-      <div class="skills-grid">
-        <article class="skill-column">
-          <h3>10+ Years</h3>
-          <ul>
-            <li>Full-stack web development</li>
-            <li>Enterprise and startup products</li>
-            <li>Remote team collaboration</li>
-          </ul>
-        </article>
-        <article class="skill-column">
-          <h3>.NET Focus</h3>
-          <ul>
-            <li>ASP.NET and ASP.NET Core</li>
-            <li>API design and integration</li>
-            <li>Database-backed business apps</li>
-          </ul>
-        </article>
-        <article class="skill-column">
-          <h3>Product Work</h3>
-          <ul>
-            <li>B2B wholesale platforms</li>
-            <li>Learning and recruitment systems</li>
-            <li>Finance and distribution workflows</li>
-          </ul>
-        </article>
-      </div>
-    </section>
 
-    <section id="work" class="section" aria-labelledby="work-title">
-      <div class="work-header">
-        <div>
-          <div class="section-kicker">Selected Work</div>
-          <h2 id="work-title">Built with intent.</h2>
+        <aside class="status-panel" aria-label="GitHub status">
+          <header>github status</header>
+          <div class="profile">
+            <img class="avatar" id="avatar" src="https://github.com/muhabujoude.png" alt="Mohammad Abujoudeh GitHub avatar">
+            <div>
+              <strong id="profileName">Mohammad Ahmad Abujoudeh</strong>
+              <span id="profileMeta">muhabujoude / Ramallah, Palestine</span>
+            </div>
+          </div>
+          <div class="metrics">
+            <div class="metric">
+              <b id="repoCount">--</b>
+              <span>repos</span>
+            </div>
+            <div class="metric">
+              <b id="followers">--</b>
+              <span>followers</span>
+            </div>
+            <div class="metric">
+              <b id="stars">--</b>
+              <span>stars</span>
+            </div>
+          </div>
+          <div class="terminal-lines">
+            <p><span class="prompt">$</span> whoami</p>
+            <p>full-stack engineer, systems thinker, production problem solver</p>
+            <p><span class="prompt">$</span> uptime</p>
+            <p id="uptime">10+ years shipping software</p>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section" id="skills">
+        <div class="section-head">
+          <div class="section-label">./skills</div>
+          <div>
+            <h2>Clean interfaces, reliable backends, and tools that survive real usage.</h2>
+            <p class="section-intro">The stack is practical by design: modern frontend architecture, strong backend foundations, and operational tooling for teams that need software to keep moving.</p>
+          </div>
         </div>
-        <p class="work-note">
-          Featured work comes from Toptal. GitHub repositories include public repos and recent public activity.
-        </p>
-      </div>
-      <div class="work-list work-grid">
-        <article class="work-item">
-          <div>
-            <div class="work-title">
-              <h3>Sowan Wholesale</h3>
-              <span class="tech">Angular / .NET / B2B Commerce</span>
-            </div>
-            <p class="work-desc">Wholesale platform work for supplier ordering, product discovery, and business purchasing workflows.</p>
-          </div>
-          <div class="work-meta">
-            <span>Featured</span>
-            <a class="arrow-link" href="https://sowan.net/" target="_blank" rel="noreferrer" aria-label="Open Sowan Wholesale">↗</a>
-          </div>
-        </article>
-        <article class="work-item">
-          <div>
-            <div class="work-title">
-              <h3>Horizon Group</h3>
-              <span class="tech">Web Platform / CMS / Frontend</span>
-            </div>
-            <p class="work-desc">Digital presence and platform work for an education and training organization.</p>
-          </div>
-          <div class="work-meta">
-            <span>Featured</span>
-            <a class="arrow-link" href="https://horizonacademy.ps/" target="_blank" rel="noreferrer" aria-label="Open Horizon Group">↗</a>
-          </div>
-        </article>
-        <article class="work-item">
-          <div>
-            <div class="work-title">
-              <h3>Be.Leader</h3>
-              <span class="tech">Learning Platform / Full Stack</span>
-            </div>
-            <p class="work-desc">Product development for a leadership-focused learning platform with structured content and user-facing workflows.</p>
-          </div>
-          <div class="work-meta">
-            <span>Featured</span>
-            <a class="arrow-link" href="https://be-leader.tech/" target="_blank" rel="noreferrer" aria-label="Open Be.Leader">↗</a>
-          </div>
-        </article>
-        <article class="work-item">
-          <div>
-            <div class="work-title">
-              <h3>Distribution Management System</h3>
-              <span class="tech">.NET / SQL / Operations</span>
-            </div>
-            <p class="work-desc">Business system work for managing inventory, distribution, operational records, and reporting flows.</p>
-          </div>
-          <div class="work-meta">
-            <span>Case Study</span>
-            <a class="arrow-link" href="https://www.toptal.com/developers/resume/mohammad-ahmad-abujoudeh" target="_blank" rel="noreferrer" aria-label="Open Mohammad's Toptal profile">↗</a>
-          </div>
-        </article>
-        <article class="work-item">
-          <div>
-            <div class="work-title">
-              <h3>Invoice Flow Certify Hub</h3>
-              <span class="tech">Workflow Automation / .NET</span>
-            </div>
-            <p class="work-desc">Workflow-focused application work around invoice processing, certification steps, and internal approval flows.</p>
-          </div>
-          <div class="work-meta">
-            <span>Case Study</span>
-            <a class="arrow-link" href="https://www.toptal.com/developers/resume/mohammad-ahmad-abujoudeh" target="_blank" rel="noreferrer" aria-label="Open Mohammad's Toptal profile">↗</a>
-          </div>
-        </article>
-      </div>
-      <div class="section-kicker github-kicker">GitHub Work</div>
-      <div id="workList" class="work-list work-grid loading" aria-live="polite">
-        <div class="empty-work">Loading GitHub work...</div>
-      </div>
-    </section>
 
-    <section id="contact" class="section contact" aria-labelledby="contact-title">
-      <div>
-        <div class="section-kicker">Contact</div>
-        <h2 id="contact-title">Let's build something.</h2>
-        <a class="contact-email" href="mailto:hello@mohammadabujoudeh.dev">
-          hello@mohammadabujoudeh.dev
-        </a>
-      </div>
-      <div class="contact-links">
-        <a class="button" href="https://github.com/muhabujoude" target="_blank" rel="noreferrer">GitHub</a>
-        <a class="button" href="https://www.linkedin.com/in/mohammad-abujoudeh/" target="_blank" rel="noreferrer">LinkedIn</a>
-      </div>
-    </section>
-  </main>
+        <div class="skills-grid">
+          <article class="skill-col">
+            <h3>frontend</h3>
+            <ul class="skill-list">
+              <li>React</li>
+              <li>Angular</li>
+              <li>TypeScript</li>
+              <li>JavaScript</li>
+              <li>HTML</li>
+              <li>CSS</li>
+            </ul>
+          </article>
+          <article class="skill-col">
+            <h3>backend</h3>
+            <ul class="skill-list">
+              <li>.NET</li>
+              <li>Node.js</li>
+              <li>REST APIs</li>
+              <li>PostgreSQL</li>
+              <li>SQL Server</li>
+              <li>Auth</li>
+            </ul>
+          </article>
+          <article class="skill-col">
+            <h3>tools</h3>
+            <ul class="skill-list">
+              <li>Docker</li>
+              <li>Git</li>
+              <li>Linux</li>
+              <li>CI/CD</li>
+              <li>GitHub Pages</li>
+              <li>Cloud</li>
+            </ul>
+          </article>
+        </div>
+      </section>
 
-  <footer>
-    <div class="footer-inner">
-      <span>Mohammad Ahmad Abujoudeh</span>
-      <span id="year">2026</span>
-    </div>
-  </footer>
+      <section class="section" id="experience">
+        <div class="section-head">
+          <div class="section-label">git log --career</div>
+          <div>
+            <h2>Experience shaped around delivery, not decoration.</h2>
+            <p class="section-intro">A compact history of the kind of work Mohammad has done: ERP, wholesale systems, leadership platforms, APIs, dashboards, and business operations software.</p>
+          </div>
+        </div>
+
+        <div class="log" id="experienceLog"></div>
+      </section>
+
+      <section class="section" id="featured">
+        <div class="section-head">
+          <div class="section-label">./featured-work</div>
+          <div>
+            <h2>Selected builds from professional work.</h2>
+            <p class="section-intro">These are curated case-study style entries based on Mohammad's professional profile and public portfolio details.</p>
+          </div>
+        </div>
+
+        <div class="work-grid" id="featuredGrid"></div>
+      </section>
+
+      <section class="section" id="work">
+        <div class="section-head">
+          <div class="section-label">gh repo list --all</div>
+          <div>
+            <h2>All public GitHub projects I can fetch.</h2>
+            <p class="section-intro">This grid reads from GitHub on page load, merges owned repositories with visible public activity, then renders every project it can see.</p>
+          </div>
+        </div>
+
+        <div class="work-grid" id="repoGrid">
+          <div class="loading"><span class="prompt">$</span> loading GitHub repositories...</div>
+        </div>
+      </section>
+
+      <section class="section" id="terminal">
+        <div class="section-head">
+          <div class="section-label">interactive prompt</div>
+          <div>
+            <h2>Run a few portfolio commands.</h2>
+            <p class="section-intro">Type help, projects, skills, experience, contact, theme, open portfolio, or clear.</p>
+          </div>
+        </div>
+
+        <div class="console">
+          <div class="console-window">
+            <div class="console-output" id="consoleOutput" aria-live="polite"></div>
+            <form class="console-form" id="consoleForm">
+              <label class="prompt" for="commandInput">$</label>
+              <input id="commandInput" autocomplete="off" spellcheck="false" aria-label="Portfolio command input" placeholder="help">
+            </form>
+          </div>
+
+          <aside class="quick-links">
+            <a href="https://github.com/muhabujoude" target="_blank" rel="noreferrer">github /muhabujoude</a>
+            <a href="https://www.linkedin.com/in/mohammad-abujoudeh/" target="_blank" rel="noreferrer">linkedin /mohammad-abujoudeh</a>
+            <a href="https://www.toptal.com/developers/resume/mohammad-ahmad-abujoudeh" target="_blank" rel="noreferrer">toptal /resume</a>
+            <button type="button" id="matrixBtn">matrix mode</button>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="contact-panel">
+          <div>
+            <div class="section-label">./contact</div>
+            <h2>Let's build something that holds up.</h2>
+            <p>Email: <a href="mailto:hello@mohammadabujoudeh.dev">hello@mohammadabujoudeh.dev</a></p>
+          </div>
+          <div class="hero-actions">
+            <a class="btn" href="mailto:hello@mohammadabujoudeh.dev">email</a>
+            <a class="btn secondary" href="https://github.com/muhabujoude" target="_blank" rel="noreferrer">github</a>
+            <a class="btn secondary" href="https://www.linkedin.com/in/mohammad-abujoudeh/" target="_blank" rel="noreferrer">linkedin</a>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <span>Mohammad Ahmad Abujoudeh</span>
+        <span id="year"></span>
+      </footer>
+    </main>
+  </div>
 
   <script>
     const username = "muhabujoude";
     const profileUrl = `https://api.github.com/users/${username}`;
     const reposUrl = `https://api.github.com/users/${username}/repos?per_page=100&type=all&sort=updated`;
     const eventsUrl = `https://api.github.com/users/${username}/events/public?per_page=100`;
+    const knownExternalRepos = [
+      "AbeerAhmad2003/smallShop-API"
+    ];
 
-    const fallbackBio =
-      "Full-stack developer with 10+ years of experience building enterprise-grade web platforms, modern frontends, and scalable .NET-backed systems.";
+    const professionalProjects = [
+      {
+        name: "Sowan Wholesale Platform",
+        stack: "Angular / .NET / SQL",
+        year: "2024",
+        description: "Wholesale management platform focused on inventory, invoicing, user workflows, and operational visibility.",
+        url: "https://www.toptal.com/developers/resume/mohammad-ahmad-abujoudeh"
+      },
+      {
+        name: "Horizon Group Systems",
+        stack: ".NET / Angular / Reporting",
+        year: "2023",
+        description: "Business software for internal teams, reports, and day-to-day process automation.",
+        url: "https://www.toptal.com/developers/resume/mohammad-ahmad-abujoudeh"
+      },
+      {
+        name: "Be.Leader",
+        stack: "React / API / UX",
+        year: "2022",
+        description: "Leadership and education-oriented product work with structured frontend experiences and backend integrations.",
+        url: "https://www.toptal.com/developers/resume/mohammad-ahmad-abujoudeh"
+      },
+      {
+        name: "Distribution Management System",
+        stack: ".NET / PostgreSQL / Docker",
+        year: "2021",
+        description: "Operational system for distribution workflows, data management, and backend services.",
+        url: "https://www.toptal.com/developers/resume/mohammad-ahmad-abujoudeh"
+      },
+      {
+        name: "Invoice Flow Certify Hub",
+        stack: "TypeScript / API / GitHub",
+        year: "2025",
+        description: "Invoice and certification workflow concept with a focus on clean UI states and repository-backed delivery.",
+        url: "https://github.com/muhabujoude"
+      }
+    ];
 
-    const languageFallback = {
-      portfolio: "HTML / CSS / JavaScript",
-      "muhabujoude.github.io": "HTML / CSS / JavaScript"
+    const experience = [
+      {
+        hash: "a8f31c2",
+        title: "Senior full stack delivery",
+        body: "Built production-ready applications across frontend, backend, database, deployment, and client-facing iteration.",
+        year: "10+ yrs"
+      },
+      {
+        hash: "d72b04e",
+        title: ".NET and Angular business platforms",
+        body: "Created structured systems for inventory, ERP-style workflows, dashboards, reporting, and team operations.",
+        year: "core"
+      },
+      {
+        hash: "f19c55a",
+        title: "React and TypeScript interfaces",
+        body: "Designed usable frontend surfaces that keep complex workflows clear, fast, and maintainable.",
+        year: "modern"
+      },
+      {
+        hash: "c03e911",
+        title: "APIs, SQL, and deployment foundations",
+        body: "Connected product UI to reliable services with SQL-backed persistence, Git workflows, and deployable architecture.",
+        year: "ops"
+      }
+    ];
+
+    const state = {
+      repos: [],
+      profile: null
     };
 
-    const escapeHtml = (value) =>
-      String(value || "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+    const $ = (selector) => document.querySelector(selector);
+    const repoGrid = $("#repoGrid");
+    const output = $("#consoleOutput");
+    const commandInput = $("#commandInput");
 
-    const getYear = (value) => {
-      const date = value ? new Date(value) : new Date();
-      return Number.isNaN(date.getFullYear()) ? new Date().getFullYear() : date.getFullYear();
-    };
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      }[char]));
+    }
 
-    const formatDescription = (repo) => {
-      if (repo.description) return repo.description;
-      return "A public GitHub repository connected to Mohammad Abujoudeh's development work.";
-    };
+    function formatDate(value) {
+      if (!value) return "recent";
+      return new Intl.DateTimeFormat("en", { year: "numeric", month: "short" }).format(new Date(value));
+    }
 
-    const repoKey = (repo) => repo.full_name || repo.name;
+    function normalizeRepo(repo) {
+      return {
+        id: repo.id || repo.full_name,
+        name: repo.name || repo.full_name?.split("/").pop() || "repository",
+        full_name: repo.full_name || `${username}/${repo.name}`,
+        description: repo.description || "Public repository from GitHub. Description is not set yet.",
+        language: repo.language || "Code",
+        stars: repo.stargazers_count || 0,
+        forks: repo.forks_count || 0,
+        url: repo.html_url || `https://github.com/${repo.full_name}`,
+        updated: repo.updated_at || repo.pushed_at || repo.created_at,
+        archived: Boolean(repo.archived),
+        fork: Boolean(repo.fork)
+      };
+    }
 
-    const repoFromEvent = (eventRepo) => ({
-      name: eventRepo.name.split("/").pop(),
-      full_name: eventRepo.name,
-      description: "Recent public GitHub activity by Mohammad Abujoudeh.",
-      language: null,
-      stargazers_count: 0,
-      html_url: `https://github.com/${eventRepo.name}`,
-      created_at: null,
-      updated_at: null
-    });
-
-    const mergeRepos = async (repos, events) => {
-      const byName = new Map();
-
-      repos.forEach((repo) => {
-        byName.set(repoKey(repo), repo);
+    function sortRepos(repos) {
+      return repos.sort((a, b) => {
+        if (b.stars !== a.stars) return b.stars - a.stars;
+        return new Date(b.updated || 0) - new Date(a.updated || 0);
       });
+    }
 
-      const eventRepos = [...new Map(
-        events
-          .map((event) => event.repo)
-          .filter((repo) => repo && repo.name)
-          .map((repo) => [repo.name, repo])
-      ).values()];
+    async function fetchJson(url) {
+      const response = await fetch(url, { headers: { Accept: "application/vnd.github+json" } });
+      if (!response.ok) {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+      return response.json();
+    }
 
-      const missingEventRepos = eventRepos.filter((repo) => !byName.has(repo.name));
-      const detailedEventRepos = await Promise.all(
-        missingEventRepos.map(async (repo) => {
-          try {
-            const response = await fetch(repo.url);
-            if (!response.ok) return repoFromEvent(repo);
-            return response.json();
-          } catch (error) {
-            return repoFromEvent(repo);
+    async function fetchAllOwnedRepos() {
+      const pages = [];
+      for (let page = 1; page <= 5; page += 1) {
+        const repos = await fetchJson(`${reposUrl}&page=${page}`);
+        pages.push(...repos);
+        if (repos.length < 100) break;
+      }
+      return pages;
+    }
+
+    async function fetchVisibleExternalRepos() {
+      const repos = new Map();
+
+      try {
+        const events = await fetchJson(eventsUrl);
+        events.forEach((event) => {
+          if (event.repo?.name && !event.repo.name.startsWith(`${username}/`)) {
+            repos.set(event.repo.name, event.repo.name);
           }
-        })
+        });
+      } catch (error) {
+        console.warn("GitHub events unavailable", error);
+      }
+
+      knownExternalRepos.forEach((fullName) => repos.set(fullName, fullName));
+
+      const hydrated = await Promise.allSettled(
+        [...repos.keys()].map((fullName) => fetchJson(`https://api.github.com/repos/${fullName}`))
       );
 
-      detailedEventRepos.forEach((repo) => {
-        byName.set(repoKey(repo), repo);
-      });
+      return hydrated
+        .filter((item) => item.status === "fulfilled")
+        .map((item) => item.value);
+    }
 
-      return [...byName.values()];
-    };
+    function renderProfile(profile, repos) {
+      const totalStars = repos.reduce((sum, repo) => sum + repo.stars, 0);
+      state.profile = profile;
 
-    const renderRepos = (repos) => {
-      const workList = document.querySelector("#workList");
-      const selected = repos.sort((a, b) => {
-        const aStars = a.stargazers_count || 0;
-        const bStars = b.stargazers_count || 0;
+      $("#avatar").src = profile.avatar_url || `https://github.com/${username}.png`;
+      $("#avatar").alt = `${profile.name || username} GitHub avatar`;
+      $("#profileName").textContent = profile.name || "Mohammad Ahmad Abujoudeh";
+      $("#profileMeta").textContent = `${profile.login || username} / ${profile.location || "Palestine"}`;
+      $("#repoCount").textContent = repos.length;
+      $("#followers").textContent = profile.followers ?? "--";
+      $("#stars").textContent = totalStars;
 
-        if (bStars !== aStars) {
-          return bStars - aStars;
-        }
+      if (profile.bio) {
+        $("#heroBio").textContent = `${profile.bio} Senior full stack developer with production experience across .NET, Angular, React, Node.js, SQL, and cloud-ready workflows.`;
+      }
+    }
 
-        return new Date(b.updated_at || 0) - new Date(a.updated_at || 0);
-      });
+    function renderFeatured() {
+      $("#featuredGrid").innerHTML = professionalProjects.map((project) => `
+        <a class="featured-card" href="${project.url}" target="_blank" rel="noreferrer">
+          <div class="featured-top">
+            <h3>${escapeHtml(project.name)}</h3>
+            <span class="arrow">-&gt;</span>
+          </div>
+          <p class="featured-desc">${escapeHtml(project.description)}</p>
+          <div class="featured-meta">
+            <span>${escapeHtml(project.stack)}</span>
+            <span>${escapeHtml(project.year)}</span>
+          </div>
+        </a>
+      `).join("");
+    }
 
-      workList.classList.remove("loading");
+    function renderExperience() {
+      $("#experienceLog").innerHTML = experience.map((item) => `
+        <article class="log-row">
+          <div class="log-hash">${escapeHtml(item.hash)}</div>
+          <div>
+            <div class="log-title">${escapeHtml(item.title)}</div>
+            <div class="log-body">${escapeHtml(item.body)}</div>
+          </div>
+          <div class="log-year">${escapeHtml(item.year)}</div>
+        </article>
+      `).join("");
+    }
 
-      if (!selected.length) {
-        workList.innerHTML = '<div class="empty-work">No public GitHub work available yet.</div>';
+    function renderRepos(repos) {
+      if (!repos.length) {
+        repoGrid.innerHTML = `<div class="loading">No public repositories returned from GitHub.</div>`;
         return;
       }
 
-      workList.innerHTML = selected
-        .map((repo) => {
-          const tech = repo.language || languageFallback[repo.name] || "Repository";
-          const stars = repo.stargazers_count === 1 ? "1 star" : `${repo.stargazers_count || 0} stars`;
-          const fullName = repo.full_name || repo.name;
+      repoGrid.innerHTML = repos.map((repo) => `
+        <a class="repo-card" href="${repo.url}" target="_blank" rel="noreferrer" data-repo="${escapeHtml(repo.name.toLowerCase())}">
+          <div class="repo-top">
+            <h3>${escapeHtml(repo.name)}</h3>
+            <span class="arrow">-&gt;</span>
+          </div>
+          <p class="repo-desc">${escapeHtml(repo.description)}</p>
+          <div class="repo-meta">
+            <span>${escapeHtml(repo.language)}</span>
+            <span>${repo.stars} stars</span>
+            <span>${repo.forks} forks</span>
+            <span>${formatDate(repo.updated)}</span>
+            ${repo.fork ? "<span>fork</span>" : ""}
+            ${repo.archived ? "<span>archived</span>" : ""}
+          </div>
+        </a>
+      `).join("");
+    }
 
-          return `
-            <article class="work-item">
-              <div>
-                <div class="work-title">
-                  <h3>${escapeHtml(repo.name)}</h3>
-                  <span class="tech">${escapeHtml(tech)}</span>
-                </div>
-                <p class="work-desc">${escapeHtml(formatDescription(repo))}</p>
-              </div>
-              <div class="work-meta">
-                <span>${getYear(repo.created_at || repo.updated_at)}</span>
-                <span>${escapeHtml(stars)}</span>
-                <a class="arrow-link" href="${repo.html_url}" target="_blank" rel="noreferrer" aria-label="Open ${escapeHtml(fullName)} on GitHub">↗</a>
-              </div>
-            </article>
-          `;
-        })
-        .join("");
-    };
+    function dedupeRepos(repos) {
+      const map = new Map();
+      repos.map(normalizeRepo).forEach((repo) => {
+        const key = repo.full_name.toLowerCase();
+        if (!map.has(key)) map.set(key, repo);
+      });
+      return sortRepos([...map.values()]);
+    }
 
-    const hydrateProfile = (profile) => {
-      const displayName = "Mohammad Ahmad Abujoudeh";
-      document.title = `${displayName} | Full Stack Developer`;
-      document.querySelector("#bio").textContent = profile.bio || fallbackBio;
-      document.querySelector("#avatar").src = profile.avatar_url;
-      document.querySelector("#githubProfile").href = profile.html_url;
-      document.querySelector("#githubProfile").textContent = profile.login;
-      document.querySelector("#location").textContent = profile.location || "Ramallah, Palestine";
-      document.querySelector("#followers").textContent = `${profile.followers}`;
-    };
-
-    const hydrate = async () => {
+    async function loadGitHub() {
       try {
-        const [profileResponse, reposResponse, eventsResponse] = await Promise.all([
-          fetch(profileUrl),
-          fetch(reposUrl),
-          fetch(eventsUrl)
+        const [profile, owned, external] = await Promise.all([
+          fetchJson(profileUrl),
+          fetchAllOwnedRepos(),
+          fetchVisibleExternalRepos()
         ]);
-
-        if (!profileResponse.ok || !reposResponse.ok || !eventsResponse.ok) {
-          throw new Error("GitHub API request failed");
-        }
-
-        const [profile, repos, events] = await Promise.all([
-          profileResponse.json(),
-          reposResponse.json(),
-          eventsResponse.json()
-        ]);
-        const allRepos = await mergeRepos(repos, events);
-
-        hydrateProfile(profile);
-        renderRepos(allRepos);
+        const repos = dedupeRepos([...owned, ...external]);
+        state.repos = repos;
+        renderProfile(profile, repos);
+        renderRepos(repos);
+        printLine(`loaded ${repos.length} repositories from GitHub`);
       } catch (error) {
-        document.querySelector("#workList").classList.remove("loading");
-        document.querySelector("#workList").innerHTML =
-          '<div class="empty-work">GitHub work could not be loaded right now.</div>';
+        console.error(error);
+        repoGrid.innerHTML = `
+          <div class="loading">
+            GitHub data could not be loaded right now. Visit
+            <a href="https://github.com/${username}" target="_blank" rel="noreferrer">github.com/${username}</a>.
+          </div>
+        `;
+        printLine(`github fetch failed: ${error.message}`);
       }
-    };
+    }
 
-    document.querySelector("#year").textContent = new Date().getFullYear();
-    hydrate();
+    function printLine(text, type = "text") {
+      const line = document.createElement("p");
+      line.className = "console-line";
+      if (type === "cmd") {
+        line.innerHTML = `<span class="prompt">$</span> ${escapeHtml(text)}`;
+      } else {
+        line.textContent = text;
+      }
+      output.appendChild(line);
+      output.scrollTop = output.scrollHeight;
+    }
+
+    function printBlock(lines) {
+      lines.forEach((line) => printLine(line));
+    }
+
+    function openRepoByName(name) {
+      const needle = name.trim().toLowerCase();
+      const match = state.repos.find((repo) =>
+        repo.name.toLowerCase().includes(needle) || repo.full_name.toLowerCase().includes(needle)
+      );
+      if (!match) {
+        printLine(`repo not found: ${name}`);
+        return;
+      }
+      window.open(match.url, "_blank", "noreferrer");
+      printLine(`opening ${match.full_name}`);
+    }
+
+    function handleCommand(raw) {
+      const command = raw.trim();
+      if (!command) return;
+
+      printLine(command, "cmd");
+      const [base, ...rest] = command.split(" ");
+      const arg = rest.join(" ");
+
+      switch (base.toLowerCase()) {
+        case "help":
+          printBlock([
+            "available: about, skills, experience, projects, ls, contact, theme, clear",
+            "repo commands: open <repo-name>, cat <repo-name>"
+          ]);
+          break;
+        case "about":
+        case "whoami":
+          printBlock([
+            "Mohammad Ahmad Abujoudeh",
+            "Full stack developer focused on .NET, Angular, React, Node.js, SQL, and maintainable business systems.",
+            "Location: Palestine"
+          ]);
+          break;
+        case "skills":
+          printLine("React, Angular, TypeScript, .NET, Node.js, PostgreSQL, Docker, Git, Linux");
+          break;
+        case "experience":
+          experience.forEach((item) => printLine(`${item.hash} ${item.title} (${item.year})`));
+          break;
+        case "projects":
+        case "ls":
+          if (!state.repos.length) {
+            printLine("repositories still loading");
+          } else {
+            state.repos.slice(0, 12).forEach((repo) => printLine(`${repo.full_name} | ${repo.language} | ${repo.stars} stars`));
+            if (state.repos.length > 12) printLine(`...and ${state.repos.length - 12} more in the work grid`);
+          }
+          break;
+        case "contact":
+          printBlock([
+            "email: hello@mohammadabujoudeh.dev",
+            "github: https://github.com/muhabujoude",
+            "linkedin: https://www.linkedin.com/in/mohammad-abujoudeh/"
+          ]);
+          break;
+        case "theme":
+          toggleTheme();
+          printLine(`theme: ${document.documentElement.dataset.theme || "dark"}`);
+          break;
+        case "clear":
+          output.innerHTML = "";
+          break;
+        case "open":
+        case "cat":
+          if (!arg) printLine(`usage: ${base} <repo-name>`);
+          else openRepoByName(arg);
+          break;
+        case "coffee":
+          printLine("coffee accepted. deploying focus mode.");
+          break;
+        default:
+          printLine(`command not found: ${base}. try help`);
+      }
+    }
+
+    function toggleTheme() {
+      const next = document.documentElement.dataset.theme === "light" ? "" : "light";
+      document.documentElement.dataset.theme = next;
+      localStorage.setItem("portfolio-theme", next || "dark");
+    }
+
+    function initTheme() {
+      const saved = localStorage.getItem("portfolio-theme");
+      if (saved === "light") document.documentElement.dataset.theme = "light";
+    }
+
+    function initMatrix() {
+      const matrix = $("#matrix");
+      const seed = "010101 git commit deploy npm run build dotnet api sql react angular typescript ";
+      matrix.textContent = seed.repeat(160);
+      $("#matrixBtn").addEventListener("click", () => {
+        matrix.classList.toggle("active");
+        printLine(`matrix mode: ${matrix.classList.contains("active") ? "on" : "off"}`);
+      });
+    }
+
+    function initConsole() {
+      printBlock([
+        "Mohammad Ahmad Abujoudeh portfolio shell",
+        "type help to list commands"
+      ]);
+
+      $("#consoleForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        handleCommand(commandInput.value);
+        commandInput.value = "";
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initTheme();
+      renderFeatured();
+      renderExperience();
+      initConsole();
+      initMatrix();
+      loadGitHub();
+      $("#themeToggle").addEventListener("click", () => {
+        toggleTheme();
+      });
+      $("#year").textContent = new Date().getFullYear();
+    });
   </script>
 </body>
 </html>
